@@ -1,7 +1,7 @@
 
 class Model():
 
-	DB_FILE = "PETR4.sqlite3"
+	DB_FILE = "PETR4/PETR4.sqlite3"
 	
 	FIELDS = [
 		("symbol", "TEXT"),

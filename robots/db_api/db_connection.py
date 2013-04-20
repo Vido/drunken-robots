@@ -4,38 +4,31 @@ import sqlite3
 
 class DbTickerClass():
 
-	db_file = ''
-
-	def __init__(self, db_file):
+	def __init__(self, model):
 		""" This should save the last state for database file """
-		
-		extension = '.sqlite3'
-		db_file = db_file + extension
-	
+			
 		try:
-			fp = open(db_file, 'r')
+			fp = open(model.DB_FILE, 'r')
 			fp.close()
 
 		except IOError:
-			template = \
-				"CREATE TABLE ticker (" \
-					"symbol TEXT," \
-					"date TEXT," \
-					"open REAL," \
-					"high REAL," \
-					"low REAL," \
-					"close REAL," \
-					"volume REAL" \
-				");" \
+
+			template = "CREATE TABLE ticker ("
+
+			for field in model.FIELDS[:-1]:
+				template += "%s %s," % (field)
+	
+			template += "%s %s" % (model.FIELDS[-1])
+			template += ");"
 
 			context = {}
 
-			self.connection = sqlite3.connect(db_file)
+			self.connection = sqlite3.connect(model.DB_FILE)
 			query = template.format(**context)
 			self.raw_query(query)
 			self.connection.close()
 
-		self.db_file = db_file
+		self.model = model
 
 
 class DbWriter(DbTickerClass):
@@ -47,33 +40,34 @@ class DbWriter(DbTickerClass):
 		self.connection.commit()
 
 
-	def write(self, symbol, date, open_p, high, low, close, volume):
-		
-		template = \
-			"INSERT INTO ticker " \
-				"(symbol, date, open, high, low, close, volume) " \
-			"VALUES ('{symbol_t}', {date}, {open_p}, {high}," \
-				" {low}, {close}, {volume})"
+	def write(self, *args):
 
-		context = {
-			 'symbol_t': symbol,
-			 'date': date,
-			 'open_p': open_p,
-			 'high': high,
-			 'low': low,
-			 'close': close,
-			 'volume': volume,
+		model_template = "INSERT INTO ticker ({columns}) VALUES ({values});"
+		columns = ""
+		values = ""
+ 
+		for field in self.model.FIELDS[:-1]:
+			columns += "%s, " % field[0]
+			values += "{%s}, " % field[0]
+	
+		columns += "%s" % self.model.FIELDS[-1][0]
+		values += "{%s}" % self.model.FIELDS[-1][0]
+			
+		model_context = {
+			'columns': columns,
+			'values': values,
 		}
 
-		query = template.format(**context)
+		query_template = model_template.format(**model_context)
+		query_context = self.model.validate(*args)
+		query = query_template.format(**query_context)
 		
-		self.connection = sqlite3.connect(self.db_file)
+		self.connection = sqlite3.connect(self.model.DB_FILE)
 		self.raw_query(query)
 		self.connection.close()
 
 
 class DbReader(DbTickerClass):
-
 	def raw_query(self, query):
 		""" Send read-queries the database """
 		cursor = self.connection.cursor()
@@ -81,8 +75,7 @@ class DbReader(DbTickerClass):
 		return cursor.fetchall()
 
 	def select(self, query):
-		self.connection = sqlite3.connect(self.db_file)
+		self.connection = sqlite3.connect(self.model.DB_FILE)
 		result = self.raw_query(query)
 		self.connection.close()
 		return result
-

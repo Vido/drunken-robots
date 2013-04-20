@@ -15,7 +15,6 @@ modules = map(__import__, MANEGED_ROBOTS)
 #	exec('import %s' % robot)
 
 for module in modules:
-	print module.__file__
 	try:
 		module.rules.should_it_run()
 	except Exception as e:

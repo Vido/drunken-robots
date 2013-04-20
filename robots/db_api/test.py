@@ -3,40 +3,88 @@
 import os
 import unittest
 
-from db_connection import DbWriter, DbReader
+from db_connection import DbWriter
+from db_connection import DbReader
 
 try:
-	os.remove('test.sqlite3')
+	os.remove('*.sqlite3')
 except OSError as e:
 	pass
 	
 
-class TestDbWriter(unittest.TestCase):
+class Model1():
+	DB_FILE = 'test1.sqlite3'
 
-	db_file = 'test'
-	dbc = DbWriter(db_file)
+	FIELDS = [
+		('fieldA', 'TEXT'),
+	]
+
+	def validate(self, *args):
+		context = {
+			'fieldA': args[0]
+		}
+		return context
+
+
+class TestDbWriter1(unittest.TestCase):
+
+	db_model = Model1()
+	dbc = DbWriter(db_model)
 	
 	def test_start(self):
-		fp = open(self.dbc.db_file, 'r')
+		fp = open(self.db_model.DB_FILE, 'r')
 		fp.close()
 		
 	def test_write(self):
+		self.dbc.write("'TEST.SA'")
+		# TODO: Check inside the sqlite file
 
-		self.dbc.write(
-			'TEST.SA',
-			"'2013-04-19'",
-			'1',
-			'1.1',
-			'0.9',
-			'1',
-			'50')
+
+class Model3():
+	DB_FILE = 'test3.sqlite3'
+
+	FIELDS = [
+		('fieldA', 'TEXT'),
+		('fieldB', 'TEXT'),
+		('fieldC', 'TEXT'),
+	]
+
+	def validate(self, *args):
+		context = {
+			'fieldA': args[0],
+			'fieldB': args[1],
+			'fieldC': args[2],
+		}
+		return context
+
+
+
+class TestDbWriter3(unittest.TestCase):
+
+	db_model = Model3()
+	dbc = DbWriter(db_model)
+	
+	def test_start(self):
+		fp = open(self.db_model.DB_FILE, 'r')
+		fp.close()
+		
+	def test_write(self):
+		self.dbc.write("'TEST.SA'", "'FOO'", "'BAR'")
+		# TODO: Check inside the sqlite file
+
 
 class TestDbReader(unittest.TestCase):
-	db_file = 'test'
-	dbc = DbReader(db_file)
 	
+	db_model = Model3()
+
+	dbcw = DbWriter(db_model)
+	dbcr = DbReader(db_model)
+
+	dbcw.write("'TEST.SA'", "'FOO'", "'BAR'")
+		
 	def test_select(self):
-		self.dbc.select("SELECT * FROM ticker;")
+		result = self.dbcr.select("SELECT * FROM ticker;")
+		assert len(result) != 0
 
 
 if __name__ == '__main__':

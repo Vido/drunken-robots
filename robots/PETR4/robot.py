@@ -1,6 +1,7 @@
 import urllib2
 from datetime import datetime
 
+from model import Model
 from db_api.db_connection import DbWriter
 
 	# Reference:
@@ -18,7 +19,7 @@ def make_your_magic():
 	data = row.split(',')
 	# "PETR4.SA","4/19/2013",18.15,18.48,17.95,18.48,38077200
 
-	symbol = data[0].replace('"','').strip()
+	symbol = data[0]
 	date = datetime.strptime(data[1], '"%m/%d/%Y"').strftime('"%Y-%m-%d"')
 	open_p = float(data[2])
 	high = float(data[3])
@@ -26,7 +27,8 @@ def make_your_magic():
 	close = float(data[5])
 	volume = float(data[6].rstrip())
 
-	dbc = DbWriter('PETR4/db')
+	model = Model()
+	dbc = DbWriter(model)
 	dbc.write(symbol, date, open_p, high, low, close, volume)
 
 #make_your_magic()
