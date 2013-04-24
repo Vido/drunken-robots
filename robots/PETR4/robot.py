@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import urllib2
 from datetime import datetime
 
@@ -29,6 +31,6 @@ def make_your_magic():
 
 	model = Model()
 	dbc = DbWriter(model)
-	dbc.write(symbol, date, open_p, high, low, close, volume)
+	dbc.write(symbol, date, open_p, high, low, close, volume, table='ticker')
 
 #make_your_magic()
