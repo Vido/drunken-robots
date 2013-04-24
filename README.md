@@ -1,9 +1,9 @@
 drunken-robots
 ==============
 
-It is a little framework to deal with web-crawlers. It is aimed for stock market crawlers.
+It's a little framework to deal with web-crawlers. It's aimed for stock market crawlers.
 
-I belive that it will be made of 3 main modules:
+I believe that it will be made of 4 main modules:
 
 - robots:
     This will handle all the crawlers-sub-modules
@@ -14,5 +14,8 @@ I belive that it will be made of 3 main modules:
         Very deep magic here.
 
 - 'i havent named it yet' ('benchmark')
-    It evals the guesses end measures the error.
+    It evals the guesses and measures the errors.
 	Maybe it will plot beautiful graphs.
+
+- (maybe a) core module:
+	To organize the API
