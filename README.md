@@ -10,7 +10,7 @@ I belive that it will be made of 3 main modules:
 
 - psychics:
     This will use the data that the crawlers gathered.
-	Then it will guess something, some number, some date
+	Then it will guess something, some number, some date.
         Very deep magic here.
 
 - 'i havent named it yet' ('benchmark')
