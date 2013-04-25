@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-
 class Model():
 
     DB_FILE = "PETR4/PETR4.sqlite3"

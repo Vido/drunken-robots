@@ -3,7 +3,7 @@
 import sqlite3
 
 
-class DbTickerClass():
+class DbBaseClass():
 
     def __init__(self, model):
         """ This should save the last state for database file """
@@ -38,7 +38,7 @@ class DbTickerClass():
         self.model = model
 
 
-class DbWriter(DbTickerClass):
+class DbWriter(DbBaseClass):
 
     def raw_query(self, query):
         """ Send write-queries the database """
@@ -56,12 +56,15 @@ class DbWriter(DbTickerClass):
         columns = ""
         values = ""
 
-        for field in self.model.SCHEMA[table][:-1]:
+        # Filters tuples like ("", "FOREIGN KEY(fk) REFERENCES table(pk))
+        fields = [field for field in self.model.SCHEMA[table] if field[0]]
+
+        for field in fields[:-1]:
             columns += "%s, " % field[0]
             values += "{%s}, " % field[0]
 
-        columns += "%s" % self.model.SCHEMA[table][-1][0]
-        values += "{%s}" % self.model.SCHEMA[table][-1][0]
+        columns += "%s" % fields[-1][0]
+        values += "{%s}" % fields[-1][0]
 
         model_context = {
             'columns': columns,
@@ -77,7 +80,7 @@ class DbWriter(DbTickerClass):
         self.connection.close()
 
 
-class DbReader(DbTickerClass):
+class DbReader(DbBaseClass):
     def raw_query(self, query):
         """ Send read-queries the database """
         cursor = self.connection.cursor()

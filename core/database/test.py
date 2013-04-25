@@ -3,8 +3,8 @@
 import os
 import unittest
 
-from db_connection import DbWriter
-from db_connection import DbReader
+from connection import DbWriter
+from connection import DbReader
 
 try:
     os.remove('*.sqlite3')

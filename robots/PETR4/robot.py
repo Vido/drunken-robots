@@ -3,8 +3,9 @@
 import urllib2
 from datetime import datetime
 
+from core.database.connection import DbWriter
+
 from model import Model
-from db_api.db_connection import DbWriter
 
 	# Reference:
 	# http://code.google.com/p/yahoo-finance-managed/wiki/enumQuoteProperty
