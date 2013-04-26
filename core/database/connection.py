@@ -76,6 +76,7 @@ class DbWriter(DbBaseClass):
         query = query_template.format(**query_context)
 
         self.connection = sqlite3.connect(self.model.DB_FILE)
+        print query # DEBUG
         self.raw_query(query)
         self.connection.close()
 

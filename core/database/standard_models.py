@@ -6,7 +6,7 @@ class PsychicModel():
     
     SCHEMA = {
         'prediction': [
-            ("", "pk INTEGER PRIMARY KEY AUTOINCREMENT")
+            ("", "pk INTEGER PRIMARY KEY AUTOINCREMENT"),
             ("", "present_date DATETIME DEFAULT CURRENT_TIMESTAMP"),
             ("future_date", "DATETIME"),
             ("symbol", "TEXT"),
@@ -17,7 +17,7 @@ class PsychicModel():
             ("fk", "INTEGER UNIQUE"),
             ("price", "REAL"),
             ("error", "REAL"),
-            ("", "FOREIGN KEY(child_id) REFERENCES prediction(id)"),
+            ("", "FOREIGN KEY(fk) REFERENCES prediction(pk)"),
         ],
     }
 
