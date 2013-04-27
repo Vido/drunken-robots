@@ -9,6 +9,7 @@ from connection import DbReader
 try:
     os.remove('*.sqlite3')
 except OSError as e:
+    print repr(e)
     pass
 
 
@@ -101,10 +102,5 @@ if __name__ == '__main__':
 
     unittest.main()
 
-    try:
-        os.remove('*.sqlite3')
-    except OSError as e:
-        pass
-
-
+    print 'foo'
 

@@ -43,6 +43,7 @@ class DbWriter(DbBaseClass):
     def raw_query(self, query):
         """ Send write-queries the database """
         cursor = self.connection.cursor()
+        #print query # DEBUG
         cursor.execute(query)
         self.connection.commit()
 
@@ -76,7 +77,7 @@ class DbWriter(DbBaseClass):
         query = query_template.format(**query_context)
 
         self.connection = sqlite3.connect(self.model.DB_FILE)
-        print query # DEBUG
+        #print query # DEBUG
         self.raw_query(query)
         self.connection.close()
 
@@ -90,6 +91,7 @@ class DbReader(DbBaseClass):
 
     def select(self, query):
         self.connection = sqlite3.connect(self.model.DB_FILE)
+        #print query # DEBUG
         result = self.raw_query(query)
         self.connection.close()
         return result

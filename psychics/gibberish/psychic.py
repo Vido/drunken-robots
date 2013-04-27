@@ -29,5 +29,5 @@ class Gibberish(BasePsychic):
 
         dbw.write(str_future, "'PETR4'", future_price, table='prediction')
 
-g = Gibberish()
-g.make_your_magic()
+#g = Gibberish()
+#g.make_your_magic()

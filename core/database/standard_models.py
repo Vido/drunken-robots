@@ -9,8 +9,8 @@ class PsychicModel(BaseModel):
     SCHEMA = {
         'prediction': [
             ("", "pk INTEGER PRIMARY KEY AUTOINCREMENT"),
-            ("", "present_date DATE" \
-                 "DEFAULT (DATETIME('now', 'localtime'))"),
+            ("", "present_date DATETIME " \
+                 " DEFAULT (DATETIME('now', 'localtime'))"),
             ("future_date", "DATETIME"),
             ("symbol", "TEXT"),
             ("price", "REAL"),
