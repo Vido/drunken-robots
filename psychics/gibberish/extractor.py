@@ -1,7 +1,6 @@
 import sqlite3
 
-class BaseExtractor():
-    pass
+from core.basics.base_classes import BaseExtractor
 
 class OilMiner(BaseExtractor):
 

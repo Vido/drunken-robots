@@ -1,5 +1,6 @@
+# -*- coding: utf-8 -*-
 
-def score():
+def score(Psychic):
 	# call the banchmark function	
 	# get the predictions
 

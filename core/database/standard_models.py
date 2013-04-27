@@ -1,13 +1,16 @@
 # -*- coding: utf-8 -*-
 
-class PsychicModel():
+from core.basics.base_classes import BaseModel
+
+class PsychicModel(BaseModel):
 
     DB_FILE = ""
     
     SCHEMA = {
         'prediction': [
             ("", "pk INTEGER PRIMARY KEY AUTOINCREMENT"),
-            ("", "present_date DATETIME DEFAULT CURRENT_TIMESTAMP"),
+            ("", "present_date DATE" \
+                 "DEFAULT (DATETIME('now', 'localtime'))"),
             ("future_date", "DATETIME"),
             ("symbol", "TEXT"),
             ("price", "REAL"),
@@ -59,7 +62,7 @@ class PsychicModel():
         return context
 
 
-class CandlestickModel():
+class CandlestickModel(BaseModel):
 
     DB_FILE = ""
 

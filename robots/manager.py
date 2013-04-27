@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# -*-coding: utf-8 -*-
 
 import os
 import sys
@@ -11,39 +11,41 @@ MANEGED_ROBOTS = (
     'PETR4',
 )
 
-def run_robots(robots_list):
+def run_robots(modules_list):
 
-    # modules = map(__import__, robots_list)
-    modules = []
+    robots_list = []
 
-    for robot in robots_list:
+    for module in modules_list:
         try:
-            module = __import__(robot, globals())
-            modules.append(module)
+            robot_module = __import__(module, globals())
+            robot_class = getattr(robot_module, robot_module.__name__)
+            robots_list.append(robot_class)
         except Exception as e:
-            print "Robot %s has problems:\n %s" % (robot, e)
+            print "Robot %s has problems:\n %s" % (module, e)
             continue
 
-    for module in modules:
+    for robot_class in robots_list:
+
         try:
-            module.rules.should_it_run()
+            robot = robot_class()
+            robot.time_to_work()
         except Exception as e:
-            print "Robot %s skiped:\n %s" % (module.__name__, e)
+            print "Robot %s skiped:\n %s" % (robot_module.__name__, e)
             continue
 
         try:
-            print "Running %s robot..." % module.__name__,
-            module.robot.make_your_magic()
+            print "Running %s robot..." % robot_module.__name__,
+            robot.do_your_job()
             print " OK."
         except Exception as e:
-            print "Robot %s failed! \n %s" % (module.__name__, e)
+            print "Robot %s failed! \n %s" % (robot_module.__name__, e)
 
 if __name__ == '__main__':
 
     if len(sys.argv[1:]) == 0:
-        robots_list = MANEGED_ROBOTS
+        modules_list = MANEGED_ROBOTS
     else:
-        robots_list = sys.argv[1:]
+        modules_list = sys.argv[1:]
 
-    run_robots(robots_list)
+    run_robots(modules_list)
 

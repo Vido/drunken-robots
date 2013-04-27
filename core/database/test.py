@@ -98,4 +98,13 @@ class TestDbReader(unittest.TestCase):
 
 
 if __name__ == '__main__':
+
     unittest.main()
+
+    try:
+        os.remove('*.sqlite3')
+    except OSError as e:
+        pass
+
+
+

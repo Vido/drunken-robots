@@ -1,2 +1,1 @@
-import robot
-import rules
+from robot import PETR4
