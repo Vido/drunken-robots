@@ -23,8 +23,16 @@ class OilMiner(BaseExtractor):
         tuples = self.cursor.fetchall()
         return tuples
 
-# quick test
+    def latest(self):
+        query = "SELECT * FROM ticker ORDER BY date DESC LIMIT 1;"
+        self.cursor.execute(query)
+        tuples = self.cursor.fetchall()
+        return tuples
+
+       
+# quick tstest
 #om = OilMiner();
 #a = om.last5days_high()
+#a = om.latest()
 #print a
 

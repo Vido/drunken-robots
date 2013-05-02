@@ -30,6 +30,15 @@ class BaseExtractor():
         pass
 
 
+class BaseSurveyor():
+    def __init__(self, model, extractor):
+        self.model = model
+        self.extractor = extractor
+
+        if 'reckon' not in dir(self):
+            #TODO Custom Exceptions
+            raise Exception('Method make_your_magic() is not set')
+
 class BasePsychic():
     model = None
     extractor = None
@@ -43,8 +52,11 @@ class BasePsychic():
             #TODO Custom Exceptions
             raise Exception('Extractor is not set')
 
+        if not self.surveyor:
+            #TODO Custom Exceptions
+            raise Exception('Surveyor is not set')
+
         if 'make_your_magic' not in dir(self):
             #TODO Custom Exceptions
             raise Exception('Method make_your_magic() is not set')
-
 
