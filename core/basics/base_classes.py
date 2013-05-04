@@ -35,9 +35,15 @@ class BaseSurveyor():
         self.model = model
         self.extractor = extractor
 
+        if 'not_measured_yet' not in dir(self):
+            #TODO Custom Exceptions
+            raise Exception('Method not_measured_yet() is not set')
+
+
         if 'reckon' not in dir(self):
             #TODO Custom Exceptions
             raise Exception('Method make_your_magic() is not set')
+
 
 class BasePsychic():
     model = None

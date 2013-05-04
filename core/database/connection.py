@@ -1,4 +1,4 @@
-# TODO set encoding
+# -*- coding: utf-8 -*-
 
 import sqlite3
 

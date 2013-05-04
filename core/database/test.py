@@ -6,6 +6,7 @@ import unittest
 from connection import DbWriter
 from connection import DbReader
 
+# TODO: Fix
 try:
     os.remove('*.sqlite3')
 except OSError as e:
@@ -101,6 +102,4 @@ class TestDbReader(unittest.TestCase):
 if __name__ == '__main__':
 
     unittest.main()
-
-    print 'foo'
 

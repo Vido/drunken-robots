@@ -34,4 +34,4 @@ class Gibberish(BasePsychic):
 
 
 #g = Gibberish()
-#g.make_your_magic()
+#g.surveyor.reckon()
