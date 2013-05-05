@@ -53,8 +53,15 @@ class BarrelProofTest(unittest.TestCase):
     def test_reckon(self):
         self.surveyor = BarrelProof(MODEL, SmartExtractor())
         self.surveyor.reckon()
-        #from IPython import embed; embed()
 
+        conn = sqlite3.connect(TEST_DB)
+        cur = conn.cursor()
+        # Because fk == 2 is already on the table
+        query = "SELECT * FROM truth WHERE fk != 2;"
+        cur.execute(query)
+        qs = cur.fetchall()
+        assert qs == [(1, 20.09, 0.4292878186)]
+ 
 if __name__ == '__main__':
 
     # Remove (rm -rf) old database
