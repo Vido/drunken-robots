@@ -29,10 +29,18 @@ class OilMiner(BaseExtractor):
         tuples = self.cursor.fetchall()
         return tuples
 
-       
+    def benchmark(self, date):
+        assert not self.is_future(date)
+        str_date = date.strftime('%Y-%m-%d')
+        query = "SELECT * FROM ticker WHERE date = %s ;" % str_date
+        self.cursor.execute(query)
+        qs = self.cursor.fetchall()
+        assert len(qs) == 1
+        return qs
+
 # quick tstest
 #om = OilMiner();
-#a = om.last5days_high()
+#a = om.last5days_high(
 #a = om.latest()
 #print a
 

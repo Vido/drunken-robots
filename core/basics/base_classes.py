@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from datetime import datetime
 
 class BaseModel():
     def __init__(self):
@@ -27,8 +28,15 @@ class BaseRobot():
 
 class BaseExtractor():
     def __init__(self):
-        pass
+        if 'benchmark' not in dir(self):
+            #TODO Custom Exceptions
+            raise Exception('Method benchmark() is not set')
 
+    def is_future(self, some_date):
+        now = datetime.now()
+        delta = now - some_date
+        return delta.total_seconds() < 0
+ 
 
 class BaseSurveyor():
     def __init__(self, model, extractor):

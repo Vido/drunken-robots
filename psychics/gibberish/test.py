@@ -10,22 +10,34 @@ from core.database.standard_models import PsychicModel
 
 from surveyor import BarrelProof
 
-
-class DummyExtractor(BaseExtractor):
-    pass 
-
 TEST_DB = 'db_test.sqlite3'
 
-MODEL = PsychicModel()
-MODEL.DB_FILE = TEST_DB
-EXTRACTOR = DummyExtractor()
+class DummyExtractor(BaseExtractor):
+    def benchmark(self):
+        pass 
 
+class SmartExtractor(BaseExtractor):
+
+    conn = sqlite3.connect(TEST_DB)
+
+    def benchmark(self, date):
+        assert not self.is_future(date)
+        cur = self.conn.cursor()
+        str_date = date.strftime('%Y-%m-%d')
+        query = "SELECT * FROM ticker WHERE date == '%s' ;" % str_date
+        cur.execute(query) 
+        qs = cur.fetchall()
+        return qs
+
+MODEL = PsychicModel()
+MODEL.DB_FILE = TEST_DB 
 
 class BarrelProofTest(unittest.TestCase):
 
-    surveyor = BarrelProof(MODEL, EXTRACTOR)
+    surveyor = BarrelProof(MODEL, DummyExtractor())
     
     def test_not_measured_yet(self):
+   
         qs = self.surveyor.not_measured_yet()
         assert len(qs) == 2
 
@@ -38,6 +50,10 @@ class BarrelProofTest(unittest.TestCase):
         qs = self.surveyor.not_measured_yet()
         assert len(qs) == 1
 
+    def test_reckon(self):
+        self.surveyor = BarrelProof(MODEL, SmartExtractor())
+        self.surveyor.reckon()
+        #from IPython import embed; embed()
 
 if __name__ == '__main__':
 
