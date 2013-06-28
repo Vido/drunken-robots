@@ -32,6 +32,14 @@ class BaseExtractor():
             #TODO Custom Exceptions
             raise Exception('Method benchmark() is not set')
 
+    # TODO: Overload __getattr__
+
+    def ship_stuff(**kwargs):
+        return {
+            'meta': tuple(kwargs['meta']),
+            'datum': list(kwargs['datum'])
+        }
+        
     def is_future(self, some_date):
         now = datetime.now()
         delta = now - some_date
@@ -50,7 +58,7 @@ class BaseSurveyor():
 
         if 'reckon' not in dir(self):
             #TODO Custom Exceptions
-            raise Exception('Method make_your_magic() is not set')
+            raise Exception('Method reckon() is not set')
 
 
 class BasePsychic():

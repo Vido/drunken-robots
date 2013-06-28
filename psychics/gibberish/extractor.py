@@ -15,13 +15,13 @@ class OilMiner(BaseExtractor):
         query = "SELECT date, high FROM ticker ORDER BY date DESC LIMIT 5;"
         self.cursor.execute(query)
         tuples = self.cursor.fetchall()
-        return tuples
+        return self.ship_stuff(meta=('date', 'high'), datum=tuples)
 
     def last5days_low(self):
-        query = "SELECT date, high FROM ticker ORDER BY date DESC LIMIT 5;"
+        query = "SELECT date, low FROM ticker ORDER BY date DESC LIMIT 5;"
         self.cursor.execute(query)
         tuples = self.cursor.fetchall()
-        return tuples
+        return self.ship_stuff(meta=('date', 'low'), datum=tuples)
 
     def latest(self):
         query = "SELECT * FROM ticker ORDER BY date DESC LIMIT 1;"

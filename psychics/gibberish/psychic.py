@@ -22,8 +22,8 @@ class Gibberish(BasePsychic):
         best_prices = self.extractor.last5days_high()
         worse_prices = self.extractor.last5days_high()
 
-        lower = min([wp[1] for wp in worse_prices])
-        upper = max([ bp[1] for bp in best_prices])
+        lower = min([wp[1] for wp in worse_prices['datum']])
+        upper = max([ bp[1] for bp in best_prices['datum']])
 
         future_price = random.uniform(lower, upper)
         future_date = datetime.now() + timedelta(days=1)
