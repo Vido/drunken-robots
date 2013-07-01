@@ -34,7 +34,7 @@ class BaseExtractor():
 
     # TODO: Overload __getattr__
 
-    def ship_stuff(**kwargs):
+    def ship_stuff(self, **kwargs):
         return {
             'meta': tuple(kwargs['meta']),
             'datum': list(kwargs['datum'])

@@ -16,7 +16,7 @@ class BarrelProof(BaseSurveyor):
             splited_date = [int(d) for d in future.split('-')]
             date = datetime(*splited_date)
             rs = self.extractor.benchmark(date)
-            value = rs[0][5]
+            value = rs['datum'][0][5]
             #TODO extractor could retrun a list of dict
             dbw.write(pk, value, value-price, table='truth')
             #from IPython import embed; embed()

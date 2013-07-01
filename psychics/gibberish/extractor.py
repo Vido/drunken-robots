@@ -38,9 +38,10 @@ class OilMiner(BaseExtractor):
         assert len(qs) == 1
         return qs
 
-# quick tstest
-#om = OilMiner();
-#a = om.last5days_high(
+'''
+# quick test
+om = OilMiner();
+a = om.last5days_high()
 #a = om.latest()
-#print a
-
+print a
+'''
