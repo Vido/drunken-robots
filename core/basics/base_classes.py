@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from collections import namedtuple
 from datetime import datetime
 
 class BaseModel():
@@ -35,10 +36,14 @@ class BaseExtractor():
     # TODO: Overload __getattr__
 
     def ship_stuff(self, **kwargs):
-        return {
-            'meta': tuple(kwargs['meta']),
-            'datum': list(kwargs['datum'])
-        }
+        if '*' not in kwargs['meta']:
+            QuerySetTuple = namedtuple('QuerySet', tuple(kwargs['meta']))
+            print [d for d in kwargs['datum']] # DEBUG
+            QuerySet = [QuerySetTuple(*d) for d in kwargs['datum']]
+        else:
+            QuerySet = list(kwargs['datum'])
+
+        return QuerySet
         
     def is_future(self, some_date):
         now = datetime.now()

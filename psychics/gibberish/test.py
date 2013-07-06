@@ -27,8 +27,8 @@ class SmartExtractor(BaseExtractor):
         query = "SELECT * FROM ticker WHERE date == '%s' ;" % str_date
         cur.execute(query) 
         qs = cur.fetchall()
-        # return qs #  OLD
-        return self.ship_stuff(meta=('pk', 'foo', 'bar'), datum=qs) #  NEW
+        meta_list = ['*']
+        return self.ship_stuff(meta=meta_list, datum=qs) #  NEW
 
 MODEL = PsychicModel()
 MODEL.DB_FILE = TEST_DB 
