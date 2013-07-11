@@ -1,0 +1,6 @@
+MAILTO="allmightyadmin@foo.bar"
+
+# everyday at 16:05
+5 16 * * * cd /home/overlord/Documents/drunken-robots/robots; python manager.py
+
+# TUDO: Get the right path
