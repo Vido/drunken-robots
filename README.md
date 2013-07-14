@@ -28,12 +28,15 @@ I believe that it will be made of 4 main modules:
 _You must set PYTHONPATH to drunken-robots path_ 
 There is 2 ways:
 
-- Put on your ~/.pythonrc.py:
+- Put on your ~/.bashrc: (Works most of the times)
+> export PYTHONPATH=$PYTHONPATH:/path/to/drunken-robots
+
+- Put on your ~/.pythonrc.py: (It might not work)
 > import sys
 > sys.path.append(/path/to/drunken-robots)
 
-- Put on your ~/.bashrc:
-> export PYTHONPATH=$PYTHONPATH:/path/to/drunken-robots
+- Then... reload your shell
+> bash -ls
 
 - Put on your c:\autoexec.bat (for Windows):
 > set PYTHONPATH=%PYTHONPATH%;C:\PATH\TO\DRUNKEN-ROBOTS
