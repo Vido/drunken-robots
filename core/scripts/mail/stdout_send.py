@@ -1,4 +1,4 @@
-#! /bin/python
+#!/usr/bin/env python
 
 import sys
 import json
@@ -8,16 +8,19 @@ import smtplib
 def format_message(config, fp):
 
     headers = [
-        "From: " + config['sender'],
-        "Subject: " + config['subject'],
-        "To: " + config['recipient'],
-        "MIME-Version: 1.0",
-        "Content-Type: text/html"
+        'From: ' + config['sender'],
+        'Subject: ' + config['subject'],
+        'To: ' + str(config['recipient']),
+        'MIME-Version: 1.0',
+        'Content-Type: text/html'
     ]
 
     body = fp.readlines()    
 
-    return headers + "\r\n\r\n" + body
+    headers = '\r\n'.join(headers)
+    body = '\n'.join([line.rstrip() for line in body])
+
+    return headers + '\r\n\r\n' + body + '\n'
 
 if __name__ == '__main__':
     
@@ -29,7 +32,8 @@ if __name__ == '__main__':
     recipient = config['recipient']
     password = config['password']
     mesg = format_message(config, sys.stdin)
-    
+    # print mesg  # DEBUG
+
     session = smtplib.SMTP(ip, port)
     session.ehlo()
     session.starttls()
