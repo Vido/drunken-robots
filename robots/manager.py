@@ -42,7 +42,9 @@ def run_robots(modules_list):
             print "Robot %s failed! \n %s" % (robot_module.__name__, e)
 
 if __name__ == '__main__':
-
+    
+    os.chdir(os.path.dirname(__file__)) 
+    
     if len(sys.argv[1:]) == 0:
         modules_list = MANEGED_ROBOTS
     else:
