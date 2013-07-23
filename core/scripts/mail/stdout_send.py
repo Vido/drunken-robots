@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import os
 import sys
 import json
 import smtplib
@@ -22,8 +23,11 @@ def format_message(config, fp):
 
     return headers + '\r\n\r\n' + body + '\n'
 
+
 if __name__ == '__main__':
     
+    os.chdir(os.path.dirname(__file__))
+ 
     with open('stdout_send.conf', 'r') as fp:
         config = json.load(fp)
 

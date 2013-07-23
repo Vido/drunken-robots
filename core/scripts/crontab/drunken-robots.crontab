@@ -1,6 +1,6 @@
 MAILTO="allmightyadmin@foo.bar"
 
 # everyday at 22:05
-5 22 * * * cd /home/pi/drunken-robots/robots; python manager.py | ../core/scripts/mail/stdout_send.py
+5 22 * * * cd /home/pi/drunken-robots/robots; python manager.py | ../core/scripts/mail/stdout_send.py 2>> /var/log/drunken-robots  
 
 # TUDO: Get the right path
