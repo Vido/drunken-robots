@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-import os
-
 from collections import namedtuple
 from datetime import datetime
 
