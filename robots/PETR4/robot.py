@@ -1,4 +1,4 @@
-        # -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 import urllib2
 from datetime import datetime
@@ -10,14 +10,15 @@ from core.database.connection import DbReader
 
 from model import Model
 
-    # Reference:
-    # http://code.google.com/p/yahoo-finance-managed/wiki/enumQuoteProperty
-    # http://br.financas.yahoo.com/q?s=PETR4.SA
-
 class PETR4(BaseRobot):
+    """
+    Reference:
+    http://code.google.com/p/yahoo-finance-managed/wiki/enumQuoteProperty
+    http://br.financas.yahoo.com/q?s=PETR4.SA
+    """
 
     model = Model()
-    
+
     def do_your_job(self):
     
         url = "http://download.finance.yahoo.com/d/quotes.csv?s=PETR4.SA&f=sd1o0h0g0l1v0&e=.csv"

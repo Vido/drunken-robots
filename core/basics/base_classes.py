@@ -1,14 +1,16 @@
 # -*- coding: utf-8 -*-
 
+import os
+
 from collections import namedtuple
 from datetime import datetime
 
 class BaseModel():
+
     def __init__(self):
         if 'validate' not in dir(self):
             #TODO Custom Exceptions
             raise Exception('Method validate() is not set')
-
 
 class BaseRobot():
     model = None
@@ -28,6 +30,7 @@ class BaseRobot():
 
 
 class BaseExtractor():
+
     def __init__(self):
         if 'benchmark' not in dir(self):
             #TODO Custom Exceptions
@@ -38,7 +41,7 @@ class BaseExtractor():
     def ship_stuff(self, **kwargs):
         if '*' not in kwargs['meta']:
             QuerySetTuple = namedtuple('QuerySet', tuple(kwargs['meta']))
-            print [d for d in kwargs['datum']] # DEBUG
+            #print [d for d in kwargs['datum']] # DEBUG
             QuerySet = [QuerySetTuple(*d) for d in kwargs['datum']]
         else:
             QuerySet = list(kwargs['datum'])

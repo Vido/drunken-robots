@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 from core.basics.base_classes import BasePsychic
 from core.database.standard_models import PsychicModel
 from core.database.connection import DbWriter
+from core.utils import get_relative_path
 
 from extractor import OilMiner
 from surveyor import BarrelProof
@@ -11,7 +12,7 @@ from surveyor import BarrelProof
 class Gibberish(BasePsychic):
 
     model = PsychicModel()
-    model.DB_FILE = 'gibberish.sqlite3'
+    model.DB_FILE = get_relative_path(__file__, 'Gibberish.sqlite3')
     extractor = OilMiner()
     surveyor = BarrelProof(model, extractor)
 
@@ -20,10 +21,10 @@ class Gibberish(BasePsychic):
         dbw = DbWriter(self.model)
 
         best_prices = self.extractor.last5days_high()
-        worse_prices = self.extractor.last5days_high()
+        worse_prices = self.extractor.last5days_low()
 
-        lower = min([wp[1] for wp in worse_prices['datum']])
-        upper = max([ bp[1] for bp in best_prices['datum']])
+        lower = min([wp.low for wp in worse_prices])
+        upper = max([bp.high for bp in best_prices])
 
         future_price = random.uniform(lower, upper)
         future_date = datetime.now() + timedelta(days=1)

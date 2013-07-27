@@ -43,7 +43,7 @@ def run_robots(modules_list):
 
 if __name__ == '__main__':
     
-    os.chdir(os.path.dirname(__file__)) 
+    os.chdir(basedir) 
     
     if len(sys.argv[1:]) == 0:
         modules_list = MANEGED_ROBOTS

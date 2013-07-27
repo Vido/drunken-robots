@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 
-class Model():
+from core.basics.base_classes import BaseModel
+from core.utils import get_relative_path
 
-    DB_FILE = "PETR4/PETR4.sqlite3"
+class Model(BaseModel):
+
+    DB_FILE = get_relative_path(__file__, "PETR4.sqlite3")
 
     SCHEMA = {
         'ticker': [
@@ -40,3 +43,4 @@ class Model():
             raise Exception(message)
 
         return context
+
