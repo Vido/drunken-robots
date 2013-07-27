@@ -43,7 +43,7 @@ robot_template = \
 
 if __name__ == '__main__':
  
-    name = sys.argv[-1]
+    name = sys.argv[1]
     os.mkdir(name)
     os.chdir(name)
 
