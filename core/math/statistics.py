@@ -37,6 +37,30 @@ def covariance(array_x, array_y):
     acc = 0.0
     for xi, yi in zip(array_x, array_y):
         acc += (xi - x_) * (yi - y_)
+    
+    cov = float(acc) / len(array_x)
+    return cov
 
-    return float(acc) / len(array_x)
+def ordinary_least_squares(array_x, array_y):
+    assert len(array_x) == len(array_y)
 
+    n = len(array_x)
+    sx = sum(array_x)
+    sx2 = sum([ x**2 for x in array_x])
+    sy = sum(array_y)
+    #sy2 = sum([ x**2 for y in array_y])
+    sxy = sum( x*y for x, y in zip(array_x, array_y))
+
+    beta = ((n * sxy) - (sx * sy)) / ((n * sx2) - (sx**2))
+    alpha = (sy/n) - (beta * (sx/n))
+    return alpha, beta
+
+def alt_ordinary_least_squares(array_x, array_y):
+    """ Doesnt work... """
+    # http://en.wikipedia.org/wiki/Simple_linear_regression
+    assert len(array_x) == len(array_y)
+    x_ = mean(array_x)
+    y_ = mean(array_y)
+    beta = covariance(array_x, array_y) / variance(array_x)
+    alpha = y_ - (beta * x_)
+    return alpha, beta
