@@ -10,6 +10,7 @@ sys.path.append(basedir)
 
 MANEGED_ROBOTS = (
     'PETR4',
+#    'ITUB4'
 )
 
 def run_robots(modules_list):
@@ -26,20 +27,19 @@ def run_robots(modules_list):
             continue
 
     for robot_class in robots_list:
-
         try:
             robot = robot_class()
             robot.time_to_work()
         except Exception as e:
-            print "Robot %s skiped:\n %s" % (robot_module.__name__, e)
+            print "Robot %s skiped:\n %s" % (robot_class.__name__, e)
             continue
 
         try:
-            print "Running %s robot..." % robot_module.__name__,
+            print "Running %s robot..." % robot_class.__name__,
             robot.do_your_job()
             print " OK."
         except Exception as e:
-            print "Robot %s failed! \n %s" % (robot_module.__name__, e)
+            print "Robot %s failed! \n %s" % (robot_class.__name__, e)
 
 if __name__ == '__main__':
     
