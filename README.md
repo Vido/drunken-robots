@@ -24,6 +24,11 @@ I believe that it will be made of 4 main modules:
 	A module to organize the API
 
 --------------------------------------------------------------------------
+_Dependences:_
+- python2.7
+- r-base
+
+--------------------------------------------------------------------------
 
 _You must set PYTHONPATH to drunken-robots path_ 
 There is 2 ways:

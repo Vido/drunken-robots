@@ -1,2 +1,8 @@
+# Python byte-code
 *.py[cod]
+
+# vim temps
 *.swp
+
+# R data
+.R*

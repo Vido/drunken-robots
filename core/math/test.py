@@ -3,6 +3,7 @@
 import unittest
 
 from statistics import ordinary_least_squares
+from statistics import alt_ordinary_least_squares
 
 class OLS(unittest.TestCase):
     def setUp(self):
@@ -23,6 +24,13 @@ class OLS(unittest.TestCase):
         alpha, beta = ordinary_least_squares(self.height, self.weight)
         self.assertAlmostEqual(alpha, self.alpha, places=2)
         self.assertAlmostEqual(beta, self.beta, places=2)
+
+    @unittest.skip("the 'alt' method is not right")
+    def test_alt_alpha_beta(self):
+        alpha, beta = alt_ordinary_least_squares(self.height, self.weight)
+        self.assertAlmostEqual(alpha, self.alpha, places=2)
+        self.assertAlmostEqual(beta, self.beta, places=2)
+
 
 if __name__ == '__main__':
     unittest.main()

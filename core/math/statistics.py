@@ -8,18 +8,27 @@ def mean(array):
     return float(acc) / len(array)
 
 
-def variance(array):
+def unbiased_sample_variance(array):
     # Get a copy of the array
     a = array[:]
     x_ = mean(array)
-    print x_
+    
+    sq_diff = lambda x: math.fabs(x - x_) ** 2
+    map(sq_diff, a)
+    s2 = float(sum(a))/(len(a)-1)
+    return s2
+
+
+def population_variance(array):
+    # Get a copy of the array
+    a = array[:]
+    x_ = mean(array)
     
     # TODO: I don't know why, but (x-x_)**2 < 0 sometimes...
     sq_diff = lambda x: math.fabs(x - x_) ** 2
     map(sq_diff, a)
-    #print [ q for q in a if q < 0]
-    var = float(sum(a))/len(a)
-    return var
+    sigma2 = float(sum(a))/len(a)
+    return sigma2
 
 
 def standard_deviation(array):
@@ -41,6 +50,7 @@ def covariance(array_x, array_y):
     cov = float(acc) / len(array_x)
     return cov
 
+
 def ordinary_least_squares(array_x, array_y):
     assert len(array_x) == len(array_y)
 
@@ -55,12 +65,14 @@ def ordinary_least_squares(array_x, array_y):
     alpha = (sy/n) - (beta * (sx/n))
     return alpha, beta
 
+
 def alt_ordinary_least_squares(array_x, array_y):
     """ Doesnt work... """
     # http://en.wikipedia.org/wiki/Simple_linear_regression
     assert len(array_x) == len(array_y)
     x_ = mean(array_x)
     y_ = mean(array_y)
-    beta = covariance(array_x, array_y) / variance(array_x)
+    beta = covariance(array_x, array_y) / unbiased_sample_variance(array_x)
     alpha = y_ - (beta * x_)
     return alpha, beta
+
