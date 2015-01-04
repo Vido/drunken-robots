@@ -7,7 +7,7 @@ from VaR import monte_carlo_method
 
 class MonteCarloVaR(unittest.TestCase):
     def setUp(self):
-        """ 
+        """
             Portfolio from:
                 CREDIT SUISSE | FIRST BOSTON
                 CreditRisk+
@@ -56,16 +56,16 @@ class MonteCarloVaR(unittest.TestCase):
         mesg = 'Alpha is too big for given simulations.'
         self.assertEqual(context.exception.message, mesg)
 
-    def test_sloppy_output(self): 
-        """ 
+    def test_sloppy_output(self):
+        """
             VaR must be larger the the Expected Loss
             VaR must be less than the Aggregate Exposure
             This VaR must be less then CreditRisk+'s VaR,
-                because it does not uses PD volatilities.           
+                because it does not uses PD volatilities.
 
-            99th Percentile: 55,311,503 
+            99th Percentile: 55,311,503
             Aggregate Exposure: 130,513,072
-            Expected Loss: 14,221,863 
+            Expected Loss: 14,221,863
         """
         VaR = monte_carlo_method(self.exposure, simulations=100000)
         print "Var: ", VaR
@@ -73,11 +73,11 @@ class MonteCarloVaR(unittest.TestCase):
 
         VaR = monte_carlo_method(self.exposure, simulations=100000)
         print "Var: ", VaR
-        self.assertLess(VaR, 55311503.0)        
+        self.assertLess(VaR, 55311503.0)
 
         VaR = monte_carlo_method(self.exposure, simulations=100000)
         print "Var: ", VaR
-        self.assertLess(VaR, 130513503.0)        
+        self.assertLess(VaR, 130513503.0)
 
 
 if __name__ == '__main__':

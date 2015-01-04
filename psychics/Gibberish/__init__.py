@@ -1,1 +1,1 @@
-from psychic import Gibberish 
+from psychic import Gibberish

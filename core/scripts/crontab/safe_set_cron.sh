@@ -14,7 +14,7 @@
 # More info: http://wiki.debian.org/LSBInitScripts
 
 case "$1" in
-    
+
     start)
         echo "Starting script $0"
         # Change to scrip's directory

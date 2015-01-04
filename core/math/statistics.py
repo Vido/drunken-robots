@@ -12,7 +12,7 @@ def unbiased_sample_variance(array):
     # Get a copy of the array
     a = array[:]
     x_ = mean(array)
-    
+
     sq_diff = lambda x: math.fabs(x - x_) ** 2
     map(sq_diff, a)
     s2 = float(sum(a))/(len(a)-1)
@@ -23,7 +23,7 @@ def population_variance(array):
     # Get a copy of the array
     a = array[:]
     x_ = mean(array)
-    
+
     # TODO: I don't know why, but (x-x_)**2 < 0 sometimes...
     sq_diff = lambda x: math.fabs(x - x_) ** 2
     map(sq_diff, a)
@@ -46,7 +46,7 @@ def covariance(array_x, array_y):
     acc = 0.0
     for xi, yi in zip(array_x, array_y):
         acc += (xi - x_) * (yi - y_)
-    
+
     cov = float(acc) / len(array_x)
     return cov
 

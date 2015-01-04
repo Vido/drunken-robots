@@ -38,9 +38,9 @@ def run_psychics(modules_list):
             print "Psychic %s failed! \n %s" % (psychic_module.__name__, e)
 
 if __name__ == '__main__':
-    
-    os.chdir(basedir) 
-    
+
+    os.chdir(basedir)
+
     if len(sys.argv[1:]) == 0:
         modules_list = MANEGED_PSYCHICS
     else:

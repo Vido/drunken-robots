@@ -20,13 +20,13 @@ class PETR4(BaseRobot):
     model = Model()
 
     def do_your_job(self):
-    
+
         url = "http://download.finance.yahoo.com/d/quotes.csv?s=PETR4.SA&f=sd1o0h0g0l1v0&e=.csv"
         request = urllib2.Request(url)
         response = urllib2.urlopen(request)
 
         row = response.readlines()[0]
-        #print row # DEBUG 
+        #print row # DEBUG
         data = row.split(',')
         # "PETR4.SA","4/19/2013",18.15,18.48,17.95,18.48,38077200
 
@@ -51,12 +51,12 @@ class PETR4(BaseRobot):
         template = "SELECT date FROM ticker WHERE date == '{today}'"
         context = { 'today': now.strftime("%Y-%m-%d") }
         query = template.format(**context)
-        
+
         dbr = DbReader(self.model)
         result = dbr.select(query)
 
         if result:
             raise Exception("The Robot already fetched the ticker")
-    
+
         return True
 

@@ -42,14 +42,14 @@ robot_template = \
 
 
 if __name__ == '__main__':
- 
+
     name = sys.argv[1]
     os.mkdir(name)
     os.chdir(name)
 
     robot_context = { 'name': name }
     model_context = {}
-   
+
     with open('robot.py', 'w') as fp:
         rendered = robot_template.format(**robot_context)
         fp.write(rendered)

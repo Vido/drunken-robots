@@ -16,7 +16,7 @@ def format_message(config, fp):
         'Content-Type: text/html'
     ]
 
-    body = fp.readlines()    
+    body = fp.readlines()
 
     headers = '\r\n'.join(headers)
     body = '\n'.join([line.rstrip() for line in body])
@@ -25,9 +25,9 @@ def format_message(config, fp):
 
 
 if __name__ == '__main__':
-    
+
     os.chdir(os.path.dirname(__file__))
- 
+
     with open('stdout_send.conf', 'r') as fp:
         config = json.load(fp)
 
@@ -43,7 +43,7 @@ if __name__ == '__main__':
     session.starttls()
     session.ehlo
     session.login(sender, password)
- 
+
     session.sendmail(sender, recipient, mesg)
     session.quit()
 

@@ -5,7 +5,7 @@ from core.basics.base_classes import BaseModel
 class PsychicModel(BaseModel):
 
     DB_FILE = ""
-    
+
     SCHEMA = {
         'prediction': [
             ("", "pk INTEGER PRIMARY KEY AUTOINCREMENT"),
@@ -33,18 +33,18 @@ class PsychicModel(BaseModel):
 
             #TODO: check the future_date
             float(args[2])
-            
+
             context = {
                 'future_date': args[0],
                 'symbol': args[1],
                 'price': args[2],
             }
-        
-        elif which_table['table'] == 'truth': 
+
+        elif which_table['table'] == 'truth':
 
             if len(args) != 3:
                 raise Exception("Invalid number of arguments")
- 
+
             #TODO: check the FK
             float(args[1])
             float(args[2])

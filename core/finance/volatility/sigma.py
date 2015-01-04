@@ -2,7 +2,7 @@
 
 import math
 
-from core.math.statistics import standard_deviation 
+from core.math.statistics import standard_deviation
 import returns
 
 def blind_rr_log(array):

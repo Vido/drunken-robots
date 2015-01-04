@@ -14,7 +14,7 @@ TEST_DB = 'db_test.sqlite3'
 
 class DummyExtractor(BaseExtractor):
     def benchmark(self):
-        pass 
+        pass
 
 class SmartExtractor(BaseExtractor):
 
@@ -25,20 +25,20 @@ class SmartExtractor(BaseExtractor):
         cur = self.conn.cursor()
         str_date = date.strftime('%Y-%m-%d')
         query = "SELECT * FROM ticker WHERE date == '%s' ;" % str_date
-        cur.execute(query) 
+        cur.execute(query)
         qs = cur.fetchall()
         meta_list = ['*']
         return self.ship_stuff(meta=meta_list, datum=qs) #  NEW
 
 MODEL = PsychicModel()
-MODEL.DB_FILE = TEST_DB 
+MODEL.DB_FILE = TEST_DB
 
 class BarrelProofTest(unittest.TestCase):
 
     surveyor = BarrelProof(MODEL, DummyExtractor())
-    
+
     def test_not_measured_yet(self):
-   
+
         qs = self.surveyor.not_measured_yet()
         assert len(qs) == 2
 
@@ -47,7 +47,7 @@ class BarrelProofTest(unittest.TestCase):
         query = "INSERT INTO truth VALUES(2, 20.10, 0.54)"
         cur.execute(query)
         conn.commit()
-        
+
         qs = self.surveyor.not_measured_yet()
         assert len(qs) == 1
 
@@ -62,7 +62,7 @@ class BarrelProofTest(unittest.TestCase):
         cur.execute(query)
         qs = cur.fetchall()
         assert qs == [(1, 20.09, 0.4292878186)]
- 
+
 if __name__ == '__main__':
 
     # Remove (rm -rf) old database

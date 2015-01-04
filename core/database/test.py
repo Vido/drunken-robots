@@ -26,7 +26,7 @@ class Model1():
     def validate(self, *args, **which_table):
 
         which_table['table']
-        
+
         context = {
             'fieldA': args[0]
         }

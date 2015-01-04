@@ -20,7 +20,7 @@ class BarrelProof(BaseSurveyor):
             #TODO extractor could retrun a list of dict
             dbw.write(pk, value, value-price, table='truth')
             #from IPython import embed; embed()
-            
+
 
     def not_measured_yet(self):
         dbr = DbReader(self.model)

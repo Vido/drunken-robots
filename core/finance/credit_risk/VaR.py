@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*- 
+# -*- coding: utf-8 -*-
 
 import math
 from random import random # Mersenne Twister [0, 1)
@@ -16,7 +16,7 @@ def monte_carlo_method(exposures, **kwargs):
         simulations = kwargs['simulations']
     except KeyError:
         simulations = 1000
-    
+
     try:
         alpha = kwargs['alpha']
     except KeyError:
@@ -26,11 +26,11 @@ def monte_carlo_method(exposures, **kwargs):
     if alpha > max_alpha:
         raise Exception("Alpha is too big for given simulations.")
 
-    # Monte Carlo Simulation    
+    # Monte Carlo Simulation
     loss_distribution = []
     for i in xrange(simulations):
         loss = 0.0
-        
+
         for expo in exposures:
             if expo.pd > random(): # Default Event
                 loss += expo.ead * expo.lgd
@@ -41,13 +41,13 @@ def monte_carlo_method(exposures, **kwargs):
         When in-2 < alpha < in-1
         Linear interpolation:
             "M" = [(Vn-1 - Vn-2) / (in-1 - in-2)]
-            "VaR(alpha)" = ["M" * ("alpha" - "in-2")] - "Vn-2" 
-    '''    
-    
+            "VaR(alpha)" = ["M" * ("alpha" - "in-2")] - "Vn-2"
+    '''
+
     loss_distribution.sort()
     l_idx = int(math.floor(alpha * simulations))
     u_idx = int(math.ceil(alpha * simulations))
- 
+
     # u_idx >= l_idx
     # ld[u_idx] >= ld[l_idx] because loss_distribution is orderd
 
@@ -58,6 +58,6 @@ def monte_carlo_method(exposures, **kwargs):
         mx = (float(u_idx)/simulations) - (float(l_idx)/simulations)
         VaR = ((my/mx) * (alpha - float(u_index)/simulations))
         VaR += loss_distribution[l_idx]
-    
+
     return VaR
 

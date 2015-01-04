@@ -12,10 +12,10 @@ class State():
     def __setattr__(self, name, value):
 
         overwrite_mesg = "'State' object does not support item overwriting"
- 
+
         if name == 'price':
             raise TypeError(overwrite_mesg)
-        
+
         if not (type(value) == 'State'):
             raise TypeError("untreeble type: '%s'" % repr(type(value)))
 
@@ -57,7 +57,7 @@ def bopm_europian(S, K, r, sigma, periods, opt_type, step=1):
         http://en.wikipedia.org/wiki/Binomial_options_pricing_model
         http://finance.bi.no/~bernt/gcc_prog/recipes/recipes.pdf #  P.88
     """
-    
+
     if opt_type not in ['call', 'put']:
         raise Exception("opt_type must be 'call' or 'put'")
 
@@ -71,7 +71,7 @@ def bopm_europian(S, K, r, sigma, periods, opt_type, step=1):
     for i in xrange(periods + 1):
         # print "i:", i # DEBUG
         # print "p-i:", periods - i # DEBUG
-        end_prices[i] = S * (u ** i) * (d ** (periods-i)) 
+        end_prices[i] = S * (u ** i) * (d ** (periods-i))
 
     for i in xrange(len(end_prices)):
         if opt_type == 'call':
@@ -85,7 +85,7 @@ def bopm_europian(S, K, r, sigma, periods, opt_type, step=1):
     for t in xrange(periods, -1, -1):
         for i in xrange(t):
             # end_prices is ordered. v[0] < v[1]
-            v[i] = ((q * v[i]) + (p * v[i+1])) / math.exp(r)         
+            v[i] = ((q * v[i]) + (p * v[i+1])) / math.exp(r)
         # The last is dirt from the last interation
         v[i+1] = 0
 
