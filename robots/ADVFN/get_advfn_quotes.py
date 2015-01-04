@@ -55,6 +55,6 @@ def logout_advfn(browser):
 
 if __name__ == '__main__':
     browser = mechanize.Browser()
-    r = login_advfn(browser, 'junkmen', 'vstr1510!!')
+    r = login_advfn(browser, 'junkmen', '**********')
     search_tickers(browser, 'BOV:PETRA26')
     r = logout_advfn(browser)
